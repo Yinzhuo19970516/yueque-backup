@@ -15,6 +15,8 @@ ps aux|grep nginx
 ps -ef|grep nginx  
 查询 nginx 进程
 
+cd /usr/local/nginx
+
 <br>
   
 > 语雀地址 https://www.yuque.com/yuqueyonghuyv23kd/xebk9e/gvm8bk
