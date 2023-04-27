@@ -2,6 +2,7 @@
 ## LRU 简介
 
 least Recently Used 最近最少使用，用于操作系统内存管理，在前端开发中常用于优化页面性能和资源利用率。  
+直接翻译就是“最不经常使用的数据，重要性是最低的，应该优先删除”  
 以下是在前端中使用 LRU 算法的几个应用场景：
 
 - **前端路由**：在单页应用（SPA）中，通过将路由信息保存在缓存中，可以避免每次访问页面时都需要重新加载数据，从而提高页面响应速度和用户体验。
@@ -88,80 +89,107 @@ LRUCache.prototype.put = function (key, value) {
 ## 双向链表+哈希表
 
 那么如何达到 O(1)的时间复杂度呢？  
-那肯定选用 map 查询。修改，删除也要尽量 O(1) 完成。搜寻常见的数据结构，链表，栈，队列，树，图。树和图排除，栈和队列无法任意查询中间的元素，也排除。所以选用链表来实现。但是如果选用单链表，删除这个结点，需要 O(n) 遍历一遍找到前驱结点。所以选用双向链表，在删除的时候也能 O(1) 完成。
+那肯定选用 map 查询。修改，删除也要尽量 O(1) 完成。搜寻常见的数据结构，链表，栈，队列，树，图。树和图排除，栈和队列无法任意查询中间的元素，也排除。所以选用链表来实现。但是如果选用单链表，删除这个结点，需要 O(n) 遍历一遍找到前驱结点。所以选用双向链表，在删除的时候也能 O(1) 完成。  
+核心就是：最近最多使用的节点永远在链表结尾，最近最少使用的节点在链表开头。
+
+### 双向链表
+
+双向链表的结构  
+value: 存储的值  
+prev: 指向前一个元素的指针  
+next: 指向下一个元素的指针  
+Head 和 Tail 是**虚拟的头部和尾部节点**，这是为了方便找到链表的首末设定的
+
+```javascript
+       ┌──────>┐    ┌───────>┐   ┌───────>┐
+  head • (x|"three"|•)  (•|"two"|•)  (•|"one"|x) • tail
+               └<────────┘   └<───────┘   └<─────┘
+```
+
+### 实现思路
 
 - 使用一个 Map 对象来存储键值对
 - 使用一个双向链表维护键值对的顺序
-- 当一个新的键值对被访问时，将其从链表尾部插入，并在 Map 中保存对应的引用
-- 当链表长度超过指定大小时，删除链表头部的元素，并从 Map 中删除对应的引用
-
-当插入节点数据时，先判断当前数据是否存在于 map 中，
-
-- 若不存在，新建一个节点 newNode，插入 map 中，该节点，头部指针指向尾部指针 tail
-  - 如果 tail 指针存在，tail 指向新节点 newNode
-  - 如果 tail 指针不存在，说明是第一个节点，head 指针指向 新节点 newNode
+- 抽离出一个 addToTaill 方法（将节点插入末尾）抽离出一个 remove 方法（删除节点）
+- 当执行 put 操作时，判断节点是否在 map 中
+  - 如果存在，获取当前节点值，在双向链表中 remove 删除改节点，重新调用 addToTail 添加到末尾
+  - 如果不存在，建立一个双向链表节点，调用 addToTail 添加到末尾，同时添加进 map
+  - 如果超过容量 this.size > this.cap，删除当前 head 节点，从 map 中删除当前 key
+- 当执行 get 操作时，判断节点是否在 map 中
+  - 如果不存在，返回-1
+  - 如果存在，获取当前 key,value，重新执行 put 操作
 
 ```javascript
+class ListNode {
+  constructor(key, value) {
+    this.key = key;
+    this.val = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
 class LRUCache {
-  constructor(limit = 10) {
-    this.limit = limit;
+  constructor(capacity = 10) {
+    this.capacity = capacity;
+    // 实际保存的键值对数量
     this.size = 0;
-    this.map = new Map();
+    this.map = {};
+    //代表最旧的节点
     this.head = null;
+    //代表最新的节点
     this.tail = null;
   }
 
   get(key) {
     const node = this.map.get(key);
-    if (!node) return;
-
-    // 如果访问的是尾节点，则不需要移动
-    if (node !== this.tail) {
-      // 将当前节点移动到尾部
-      if (node === this.head) {
-        this.head = node.next;
-        node.next.prev = null;
-      } else {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-      }
-
-      node.prev = this.tail;
-      node.next = null;
-      this.tail.next = node;
-      this.tail = node;
-    }
-
+    if (!node) return -1;
+    let node = this.map[key];
+    this.put(node.key, node.val);
     return node.value;
   }
 
   put(key, value) {
-    const node = this.map.get(key);
-
-    if (node) {
-      node.value = value;
-      this.get(key); // 将当前节点移到尾部
-      return;
-    }
-
-    const newNode = { key, value, prev: this.tail, next: null };
-    this.map.set(key, newNode);
-
-    if (this.tail) {
-      this.tail.next = newNode;
+    if (this.map[key]) {
+      let node = this.map[key];
+      node.val = value;
+      this.remove(node);
+      this.addTotail(node);
     } else {
-      this.head = newNode;
+      let node = new ListNode(key, value);
+      this.addTotail(node);
+      this.map[key] = node;
+      this.size++;
     }
-
-    this.tail = newNode;
-    this.size++;
-
-    if (this.size > this.limit) {
-      this.map.delete(this.head.key);
-      this.head = this.head.next;
-      this.head.prev = null;
+    if (this.size > this.cap) {
+      let key = this.head.key;
+      this.remove(this.head);
+      delete this.map[key];
       this.size--;
     }
+  }
+  addToTail(node) {
+    if (this.tail) {
+      this.tail.next = node;
+      node.prev = this.tail;
+      this.tail = node;
+    } else {
+      this.tail = node;
+      this.head = node;
+    }
+  }
+  remove(node) {
+    if (node.prev) {
+      node.prev.next = node.next;
+    } else {
+      this.head = this.head.next;
+    }
+    if (node.next) {
+      node.next.prev = node.prev;
+    } else {
+      this.tail = this.tail.prev;
+    }
+    node.prev = node.next = null;
   }
 }
 ```
