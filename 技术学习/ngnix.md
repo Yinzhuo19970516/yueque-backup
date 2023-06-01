@@ -11,8 +11,8 @@ brew services start nginx
 brew services stop nginx  
 brew services restart nginx  
 启动、停止、重启 nginx(推荐)  
-ps aux|grep nginx  
-ps -ef|grep nginx  
+ps aux|grep nginx
+
 查询 nginx 进程
 
 cd /usr/local/nginx
