@@ -35,7 +35,7 @@ npm 全称，**Node Package Manager** node 包管理工具
 
 入下图所示，依赖包 C 在 AB 中都被引用了, 被重复下载了两次，其实是两个完全相同的东西。  
 **从我们现在的角度看，完全没有必要。**  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660705882312-9cef4c07-08e7-4104-aefd-cd52301356be.png#clientId=u3e5f15a6-a738-4&from=paste&height=430&id=ua6e714f4&name=image.png&originHeight=826&originWidth=946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33739&status=done&style=none&taskId=ue8b35505-e34e-4641-8c20-485d64b126f&title=&width=493)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660705882312-9cef4c07-08e7-4104-aefd-cd52301356be.png#averageHue=%23ececea&clientId=u3e5f15a6-a738-4&from=paste&height=430&id=ua6e714f4&originHeight=826&originWidth=946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33739&status=done&style=none&taskId=ue8b35505-e34e-4641-8c20-485d64b126f&title=&width=493)
 
 ### npm v3 扁平化
 
@@ -47,7 +47,7 @@ npm 团队也意识到这个问题，通过**扁平化**的方式，将子依赖
 > 说明：为什么自己的 node_modules 没有 C,也能在上层访问到 C 呢？
 > require 寻找第三方包,会每层级依次去寻找 node_modules，所以即便本层级没有 node_moudles，上层有，也能找到
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660706126178-2db82d75-f7a4-40d3-9574-8b992a36732c.png#clientId=u3e5f15a6-a738-4&from=paste&height=414&id=ua4c49b70&name=image.png&originHeight=834&originWidth=950&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37940&status=done&style=none&taskId=u5bc6baa4-15ab-419e-a0ab-c9c3c2555a3&title=&width=472)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660706126178-2db82d75-f7a4-40d3-9574-8b992a36732c.png#averageHue=%23ecebe9&clientId=u3e5f15a6-a738-4&from=paste&height=414&id=ua4c49b70&originHeight=834&originWidth=950&originalType=binary&ratio=1&rotation=0&showTitle=false&size=37940&status=done&style=none&taskId=u5bc6baa4-15ab-419e-a0ab-c9c3c2555a3&title=&width=472)
 
 扁平化方式解决了相同包重复安装的问题，也**一定程度上**解决了依赖层级太深的问题。
 
@@ -74,7 +74,7 @@ npm v5 借鉴 yarn 的思想，**新增了 package-lock.json**。
 
 综上，基于**npm 扁平化 node_modules**的结构下，虽然解决了依赖嵌套、重复安装的问题，但**多重依赖和幽灵依赖**并没有好的解决方式。  
 pnpm 出现就是为了解决现在 npm 存在的问题，正如官网 pnpm 所形容自己的是一款**速度快，节省磁盘空间**的软件包管理器。  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660716784161-b9c9fc99-5d69-45fb-8b57-873af3476de3.png#clientId=u86f5a14a-0ca4-4&from=paste&height=1332&id=uc65085f6&name=image.png&originHeight=1332&originWidth=2668&originalType=binary&ratio=1&rotation=0&showTitle=false&size=506978&status=done&style=none&taskId=u5a5f7671-3a72-4729-a3ea-71de34b3b13&title=&width=2668)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660716784161-b9c9fc99-5d69-45fb-8b57-873af3476de3.png#averageHue=%23f1cda5&clientId=u86f5a14a-0ca4-4&from=paste&height=1332&id=uc65085f6&originHeight=1332&originWidth=2668&originalType=binary&ratio=1&rotation=0&showTitle=false&size=506978&status=done&style=none&taskId=u5a5f7671-3a72-4729-a3ea-71de34b3b13&title=&width=2668)
 
 ### 前置知识 软链接&硬链接
 
@@ -104,7 +104,7 @@ console.log(b); // {test:2}
 
 比如某项目中，package.json 里声明了 A 和 B，  
 A 的 package.json 里声明了 C v1.0.0,B 的 package.json 里声明了 C v2.0.0  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660723182675-50d6a27b-f03c-465e-bee5-8ff32c65205b.png#clientId=u86f5a14a-0ca4-4&from=paste&height=442&id=u5c3c3a67&name=image.png&originHeight=838&originWidth=948&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39766&status=done&style=none&taskId=u65367aaf-d2d2-421b-8042-5abee2da341&title=&width=500)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660723182675-50d6a27b-f03c-465e-bee5-8ff32c65205b.png#averageHue=%23ececea&clientId=u86f5a14a-0ca4-4&from=paste&height=442&id=u5c3c3a67&originHeight=838&originWidth=948&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39766&status=done&style=none&taskId=u65367aaf-d2d2-421b-8042-5abee2da341&title=&width=500)  
 进行 pnpm i 之后，node_modules 的层级结构如下  
 双键头代表硬链接  
 单箭头代表软链接
@@ -138,7 +138,7 @@ A 和 B 是我们在项目 package.json 中声明的依赖包，node_modules 除
 也就是说，我们所有的包，最终都以硬链接的形式，最终都在全局 pnpm/store 中，可以使得不同的项目从全局 store 寻找到同一个依赖，**大大节省了磁盘空间**。
 
 如果上面这个文件列表不够直观，大家也可以看我参考官网画的结构图  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660727198627-51e004d7-d565-44d4-a010-abdec313311c.png#clientId=u86f5a14a-0ca4-4&from=paste&height=1106&id=u6fa8da09&name=image.png&originHeight=1106&originWidth=1634&originalType=binary&ratio=1&rotation=0&showTitle=false&size=391907&status=done&style=none&taskId=u6d2e5afd-5877-4f47-82b7-6a55d713d0a&title=&width=1634)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660727198627-51e004d7-d565-44d4-a010-abdec313311c.png#averageHue=%23e5eae5&clientId=u86f5a14a-0ca4-4&from=paste&height=1106&id=u6fa8da09&originHeight=1106&originWidth=1634&originalType=binary&ratio=1&rotation=0&showTitle=false&size=391907&status=done&style=none&taskId=u6d2e5afd-5877-4f47-82b7-6a55d713d0a&title=&width=1634)
 
 ## pnpm 验证
 
@@ -156,7 +156,7 @@ github 地址如下
 
 查看 package-lcok.json 中重复文件，以 postcss 为例，一眼就看到了两个版本的 postcss 版本，  
 查看 node_modules 只有一个版本的 postcss 包会被提升，其他版本的就会被重复下载  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660744791278-e6a82632-351d-40f9-8be1-d87e51c37aca.png#clientId=u86f5a14a-0ca4-4&from=paste&height=755&id=u79a01fba&name=image.png&originHeight=755&originWidth=1011&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119632&status=done&style=none&taskId=u55af99a8-58a1-4bee-9da8-5c389d81a59&title=&width=1011)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660744791278-e6a82632-351d-40f9-8be1-d87e51c37aca.png#averageHue=%232b2b2b&clientId=u86f5a14a-0ca4-4&from=paste&height=755&id=u79a01fba&originHeight=755&originWidth=1011&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119632&status=done&style=none&taskId=u55af99a8-58a1-4bee-9da8-5c389d81a59&title=&width=1011)
 
 ### pnpm i 之后
 
@@ -173,28 +173,28 @@ github 地址如下
 以 axios 库为例，只有 37B，只是一个快捷方式，axios 软链接指向  
 这里的 37 字节其实是axios@0.26.1文件名的大小。  
 **.pnpm/axios@0.26.1/node_modules/axios**  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660729895252-8bd4af53-87be-4b43-87b1-9a7d4dc1e8e7.png#clientId=u86f5a14a-0ca4-4&from=paste&height=732&id=u1e7159ef&name=image.png&originHeight=732&originWidth=2880&originalType=binary&ratio=1&rotation=0&showTitle=false&size=322391&status=done&style=none&taskId=u8ced590a-063a-4d8e-bf6f-48d3e0f0a8c&title=&width=2880)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660729895252-8bd4af53-87be-4b43-87b1-9a7d4dc1e8e7.png#averageHue=%230e0c0c&clientId=u86f5a14a-0ca4-4&from=paste&height=732&id=u1e7159ef&originHeight=732&originWidth=2880&originalType=binary&ratio=1&rotation=0&showTitle=false&size=322391&status=done&style=none&taskId=u8ced590a-063a-4d8e-bf6f-48d3e0f0a8c&title=&width=2880)  
 切换到.pnpm 目录下，查看所有文件信息
 
 > cd .pnpm
 > ls -alh
 
 我们看到 postcss 三个版本文件夹，说明现在项目里依赖三个版本的 postcss  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660730016170-b0658864-a999-4b21-8669-99d7b280fa8d.png#clientId=u86f5a14a-0ca4-4&from=paste&height=482&id=u4ad3ef0b&name=image.png&originHeight=482&originWidth=2202&originalType=binary&ratio=1&rotation=0&showTitle=false&size=235330&status=done&style=none&taskId=u2350f2d4-a796-4f88-95a4-0d11ef15731&title=&width=2202)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660730016170-b0658864-a999-4b21-8669-99d7b280fa8d.png#averageHue=%230f0d0c&clientId=u86f5a14a-0ca4-4&from=paste&height=482&id=u4ad3ef0b&originHeight=482&originWidth=2202&originalType=binary&ratio=1&rotation=0&showTitle=false&size=235330&status=done&style=none&taskId=u2350f2d4-a796-4f88-95a4-0d11ef15731&title=&width=2202)  
 切换到postcss@7.0.39目录，查看文件信息
 
 > cd postcss@7.0.39/node_modules/postcss
 > stat -x package.json
 
 值得关注的属性有两个，一个是 Links，表示硬链接个数，一个是 Inode  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660734461444-da19af4e-ffbf-4d23-8102-0d9a9d049131.png#clientId=u86f5a14a-0ca4-4&from=paste&height=430&id=u2f23138d&name=image.png&originHeight=430&originWidth=1846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=347467&status=done&style=none&taskId=uaa5ff136-d22e-4a16-aa41-71938cf285b&title=&width=1846)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660734461444-da19af4e-ffbf-4d23-8102-0d9a9d049131.png#averageHue=%236a3831&clientId=u86f5a14a-0ca4-4&from=paste&height=430&id=u2f23138d&originHeight=430&originWidth=1846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=347467&status=done&style=none&taskId=uaa5ff136-d22e-4a16-aa41-71938cf285b&title=&width=1846)  
 我们可以通过 Inode 去查询所有的硬链接
 
 > find . -inum 8177610
 
 可以看到，在全局 Library/pnpm/store/下对应的文件目录  
 4 条记录 也对应了 links：4  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660734635787-052c1a29-bdd3-44e1-a4e4-48677e837161.png#clientId=u86f5a14a-0ca4-4&from=paste&height=232&id=ubbf1073e&name=image.png&originHeight=232&originWidth=2088&originalType=binary&ratio=1&rotation=0&showTitle=false&size=86296&status=done&style=none&taskId=u1dbf21b4-a7c9-444b-ab16-0358b79439c&title=&width=2088)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660734635787-052c1a29-bdd3-44e1-a4e4-48677e837161.png#averageHue=%23221716&clientId=u86f5a14a-0ca4-4&from=paste&height=232&id=ubbf1073e&originHeight=232&originWidth=2088&originalType=binary&ratio=1&rotation=0&showTitle=false&size=86296&status=done&style=none&taskId=u1dbf21b4-a7c9-444b-ab16-0358b79439c&title=&width=2088)
 
 ### 对比
 
@@ -245,7 +245,7 @@ pnpm
 
 我们实验一下  
 如下图，建立两个文件夹 a,b  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660799092118-405a8ce4-0ede-4f31-be8f-ab177b4ea517.png#clientId=u86f5a14a-0ca4-4&from=paste&height=161&id=u9e03da40&name=image.png&originHeight=161&originWidth=508&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31714&status=done&style=none&taskId=u14a0ffce-d300-4cfe-97a7-aac508cd15e&title=&width=508)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660799092118-405a8ce4-0ede-4f31-be8f-ab177b4ea517.png#averageHue=%23373e42&clientId=u86f5a14a-0ca4-4&from=paste&height=161&id=u9e03da40&originHeight=161&originWidth=508&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31714&status=done&style=none&taskId=u14a0ffce-d300-4cfe-97a7-aac508cd15e&title=&width=508)  
 a/index.js 中写入,b 中安装 qs 库
 
 ```bash
@@ -256,7 +256,7 @@ console.log(test)
 b 中建立 index.js 的软链接 index-s.js  
 执行 node index-s.js 发现找不到模块  
 因为软链接中的 require 软链接会从文件原始位置开始查找依赖，a 中没有 node_modules，直接报错了，但是如果是硬链接则不存在这样的问题  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660799369817-15839c78-260f-4308-a4a2-adbf383a06a6.png#clientId=u86f5a14a-0ca4-4&from=paste&height=412&id=ue94a83ce&name=image.png&originHeight=412&originWidth=1296&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94564&status=done&style=none&taskId=u727817b2-0e43-4546-a723-95f75cf0d29&title=&width=1296)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660799369817-15839c78-260f-4308-a4a2-adbf383a06a6.png#averageHue=%23080808&clientId=u86f5a14a-0ca4-4&from=paste&height=412&id=ue94a83ce&originHeight=412&originWidth=1296&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94564&status=done&style=none&taskId=u727817b2-0e43-4546-a723-95f75cf0d29&title=&width=1296)
 
 #### --preserve-symlinks
 
@@ -274,11 +274,11 @@ Node.js 有这样一个选项：–preserve-symlinks，可以设置成按照软�
 后来，我在 node.js 中文文档里找到着这么一句，但是自己没有验证  
 使用 --preserve-symlinks 会有其他方面的影响。 比如，如果符号连接的原生模块在依赖树里来自超过一个位置，它们会加载失败。 （Node.js 会将它们视为两个独立的模块，且会试图多次加载模块，造成抛出异常。）  
 [https://www.nodeapp.cn/cli.html#cli_preserve_symlinks](https://www.nodeapp.cn/cli.html#cli_preserve_symlinks)  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660800069035-c93208d0-53e2-46b3-9063-feb517c2fd81.png#clientId=u86f5a14a-0ca4-4&from=paste&height=1472&id=uc0ed43a9&name=image.png&originHeight=1472&originWidth=2946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=426557&status=done&style=none&taskId=u4e551644-eed2-4f1d-9e76-479c31610b0&title=&width=2946)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660800069035-c93208d0-53e2-46b3-9063-feb517c2fd81.png#averageHue=%23cecdcd&clientId=u86f5a14a-0ca4-4&from=paste&height=1472&id=uc0ed43a9&originHeight=1472&originWidth=2946&originalType=binary&ratio=1&rotation=0&showTitle=false&size=426557&status=done&style=none&taskId=u4e551644-eed2-4f1d-9e76-479c31610b0&title=&width=2946)
 
 #### 最终作者抛弃了这个方案
 
-![Xnip2022-08-18_10-05-59.jpg](https://cdn.nlark.com/yuque/0/2022/jpeg/1572912/1660788471184-9b7f219e-ca9f-44fc-b984-898af5e7b4f1.jpeg#clientId=u86f5a14a-0ca4-4&from=ui&id=u6017a8e0&name=Xnip2022-08-18_10-05-59.jpg&originHeight=652&originWidth=1860&originalType=binary&ratio=1&rotation=0&showTitle=false&size=176791&status=done&style=none&taskId=u864c6fb9-17df-4e9d-ac3d-030ff913acb&title=)  
+![Xnip2022-08-18_10-05-59.jpg](https://cdn.nlark.com/yuque/0/2022/jpeg/1572912/1660788471184-9b7f219e-ca9f-44fc-b984-898af5e7b4f1.jpeg#averageHue=%23e7e2d7&clientId=u86f5a14a-0ca4-4&from=ui&id=u6017a8e0&originHeight=652&originWidth=1860&originalType=binary&ratio=1&rotation=0&showTitle=false&size=176791&status=done&style=none&taskId=u864c6fb9-17df-4e9d-ac3d-030ff913acb&title=)  
 **通过和大佬们讨论分析后总结出两点原因**
 
 - **如果全部使用软链接，删除一个软链接，导致就找不到解析目录了**
@@ -333,13 +333,13 @@ jar 包和前端的 npm 包原理一样，对于嵌套依赖的问题，maven �
 
 ## npm
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662371558824-2cbec796-822f-4f22-be63-55724d42e82a.png#clientId=u41692371-e9e8-4&from=paste&height=1200&id=Xy7ga&name=image.png&originHeight=1200&originWidth=2292&originalType=binary&ratio=1&rotation=0&showTitle=false&size=292519&status=done&style=none&taskId=ue2bc282b-08a8-47c3-beaa-4a053a768ab&title=&width=2292)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662371558824-2cbec796-822f-4f22-be63-55724d42e82a.png#clientId=u41692371-e9e8-4&from=paste&height=1200&id=Xy7ga&originHeight=1200&originWidth=2292&originalType=binary&ratio=1&rotation=0&showTitle=false&size=292519&status=done&style=none&taskId=ue2bc282b-08a8-47c3-beaa-4a053a768ab&title=&width=2292)  
 2010 年的产物，至今存在已经 10 多年  
 模块数量和依赖关系日趋复杂化：
 
 - 模块数量众多，截止 2022 年，[npm 包数量已经超过 200 万](https://link.zhihu.com/?target=http%3A//www.modulecounts.com/)，数倍于其他语言的模块数量。
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662456890614-24b0343a-763e-42e4-a226-843a8027b572.png#clientId=uc56bf6dd-f72f-4&from=paste&height=412&id=ucdbad73d&name=image.png&originHeight=426&originWidth=619&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46330&status=done&style=none&taskId=ue1b2cbd7-cc3b-476d-a829-1506eb6be14&title=&width=598.5)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662456890614-24b0343a-763e-42e4-a226-843a8027b572.png#clientId=uc56bf6dd-f72f-4&from=paste&height=412&id=ucdbad73d&originHeight=426&originWidth=619&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46330&status=done&style=none&taskId=ue1b2cbd7-cc3b-476d-a829-1506eb6be14&title=&width=598.5)
 
 - 模块关系错综复杂，存在重复依赖，小文件很多，浪费磁盘空间并拖慢写入速度。**文件 IO，尤其是海量小文件的读写是非常耗时的。**
 
@@ -347,7 +347,7 @@ jar 包和前端的 npm 包原理一样，对于嵌套依赖的问题，maven �
 
 总结一下 npm install 的全过程  
 首先检查 config，获取 npm 配置，项目级的.nmprc > 用户级的 .npmrcc > 全局.npmrc > npm 内置的.npmrc   
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386214886-55e749ed-000d-4a08-90ff-5355dc570d61.png#clientId=u55a5bcea-a50e-4&from=paste&height=312&id=ub157d5ee&name=image.png&originHeight=312&originWidth=1148&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54713&status=done&style=none&taskId=ud6d9a620-6379-4090-8a7d-04c81bd1e0b&title=&width=1148)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386214886-55e749ed-000d-4a08-90ff-5355dc570d61.png#clientId=u55a5bcea-a50e-4&from=paste&height=312&id=ub157d5ee&originHeight=312&originWidth=1148&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54713&status=done&style=none&taskId=ud6d9a620-6379-4090-8a7d-04c81bd1e0b&title=&width=1148)  
 npm install 先检测是有 package-lock.json 文件:
 
 - 没有 package-lock.json 文件
@@ -367,14 +367,14 @@ npm install 先检测是有 package-lock.json 文件:
     - 命中缓存会获取缓存中的压缩文件
   - 将压缩文件解压到 node_modules 文件夹中;
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386002716-281a8ce4-7828-42f8-b08d-54b206910203.png#clientId=u55a5bcea-a50e-4&from=paste&height=710&id=u17b1995f&name=image.png&originHeight=710&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84459&status=done&style=none&taskId=uf178984a-b8b7-4155-be21-6f41135d069&title=&width=1302)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386002716-281a8ce4-7828-42f8-b08d-54b206910203.png#clientId=u55a5bcea-a50e-4&from=paste&height=710&id=u17b1995f&originHeight=710&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84459&status=done&style=none&taskId=uf178984a-b8b7-4155-be21-6f41135d069&title=&width=1302)
 
 使用 npm i --timing=true --loglevel=verbose 命令可以看到 npm install 的完整过程
 
 ### package-lock.json
 
 package-lock.json 的作用是锁定依赖结构，即只要你目录下有 package-lock.json 文件，那么你每次执行 npm install 后生成的 node_modules 目录结构一定是完全相同的。  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660714954070-b626c074-7310-414a-9e04-d73614e14fa7.png#clientId=u86f5a14a-0ca4-4&from=paste&height=850&id=VwAep&name=image.png&originHeight=850&originWidth=2016&originalType=binary&ratio=1&rotation=0&showTitle=false&size=463808&status=done&style=none&taskId=u4444c3bd-8d16-4559-8b28-f471db5b2b1&title=&width=2016)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660714954070-b626c074-7310-414a-9e04-d73614e14fa7.png#clientId=u86f5a14a-0ca4-4&from=paste&height=850&id=VwAep&originHeight=850&originWidth=2016&originalType=binary&ratio=1&rotation=0&showTitle=false&size=463808&status=done&style=none&taskId=u4444c3bd-8d16-4559-8b28-f471db5b2b1&title=&width=2016)
 
 - name:项目的名称;
 - version:项目的版本;
@@ -414,12 +414,12 @@ npm 在执行安装时，可以根据 package-lock.json 中存储的 integrity�
 
 ### 包的完整性
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662472333144-7b48480b-6921-40df-84ba-9f876497a080.png#clientId=uedf6f6a8-8725-4&from=paste&height=568&id=u5f94869f&name=image.png&originHeight=568&originWidth=1732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133974&status=done&style=none&taskId=uffee2876-608b-4a0e-9cef-fe536c1d847&title=&width=1732)   
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662472333144-7b48480b-6921-40df-84ba-9f876497a080.png#clientId=uedf6f6a8-8725-4&from=paste&height=568&id=u5f94869f&originHeight=568&originWidth=1732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133974&status=done&style=none&taskId=uffee2876-608b-4a0e-9cef-fe536c1d847&title=&width=1732)   
 例如我们执行 npm info 命令，shasum 值就是 hash 值，用户下载依赖包到本地后，需要确定在下载过程中没有出现错误，所以在下载完成之后需要在本地在计算一次文件的 hash 值，如果两个 hash 值是相同的，则确保下载的依赖是完整的，如果不同，则进行重新下载。
 
 ## yarn
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662370264803-ddbe58bd-b835-4925-9d16-1269899558a1.png#averageHue=%23f8f5f1&clientId=u41692371-e9e8-4&from=paste&height=345&id=ue1e4027f&name=image.png&originHeight=722&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&size=419233&status=done&style=none&taskId=uabc58ee5-2150-4364-bf03-04ab2e182ad&title=&width=444)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662370264803-ddbe58bd-b835-4925-9d16-1269899558a1.png#averageHue=%23f8f5f1&clientId=u41692371-e9e8-4&from=paste&height=345&id=ue1e4027f&originHeight=722&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&size=419233&status=done&style=none&taskId=uabc58ee5-2150-4364-bf03-04ab2e182ad&title=&width=444)
 
 ### 概述
 
@@ -497,7 +497,7 @@ yarn cache dir
 yarn 的缓策略，每个缓存的模块被存放在独立的文件夹，文件夹名称包含了模块名称、版本号等信息  
 命名方式：npm-[package name]-[version]-[shasum]  
 npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662470048541-0c19b0e9-49be-4797-9596-1e37b3e9e1b7.png#clientId=uedf6f6a8-8725-4&from=paste&height=410&id=u3f13b08f&name=image.png&originHeight=410&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56545&status=done&style=none&taskId=u01394d38-d4a4-4d39-9561-1c8118895e5&title=&width=785)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662470048541-0c19b0e9-49be-4797-9596-1e37b3e9e1b7.png#clientId=uedf6f6a8-8725-4&from=paste&height=410&id=u3f13b08f&originHeight=410&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56545&status=done&style=none&taskId=u01394d38-d4a4-4d39-9561-1c8118895e5&title=&width=785)
 
 ### yarn install
 
@@ -505,7 +505,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
 
 - 检测包
   - 检测是否有 npm 相关文件文件,比如 package-lock.json 等;如果有,就会有相关的提示用户注意：这些文件可能会存在冲突。
-  - ![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662467650622-9cbd25db-9c2b-4ce6-9636-e8b394f36e89.png#clientId=uedf6f6a8-8725-4&from=paste&height=70&id=u596992b1&name=image.png&originHeight=70&originWidth=586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17335&status=done&style=none&taskId=u1802e533-82fb-4454-8c26-49ef31d457c&title=&width=586)
+  - ![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662467650622-9cbd25db-9c2b-4ce6-9636-e8b394f36e89.png#clientId=uedf6f6a8-8725-4&from=paste&height=70&id=u596992b1&originHeight=70&originWidth=586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17335&status=done&style=none&taskId=u1802e533-82fb-4454-8c26-49ef31d457c&title=&width=586)
   - 检查 os cpu 等信息，部分包会设置
 - 解析包
   - 获取 package.json 中依赖 遍历首层依赖获取依赖包版本信息(dependencies 和 devDependencies) ,
@@ -517,7 +517,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
   - 遍历队列在已经解析过的包信息中，找到最合适的可用版本信息
   - 这个流程结束后 得到了所有依赖的版本信息 和 下载地址
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662468419455-6c301c1c-2ab8-4c00-8a47-addcb2cb850b.png#clientId=uedf6f6a8-8725-4&from=paste&height=964&id=u5afdd59a&name=image.png&originHeight=964&originWidth=1974&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128064&status=done&style=none&taskId=u81de0cd4-df45-43e5-86d5-3c459bfb460&title=&width=1974)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662468419455-6c301c1c-2ab8-4c00-8a47-addcb2cb850b.png#clientId=uedf6f6a8-8725-4&from=paste&height=964&id=u5afdd59a&originHeight=964&originWidth=1974&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128064&status=done&style=none&taskId=u81de0cd4-df45-43e5-86d5-3c459bfb460&title=&width=1974)
 
 - 获取包
   - 检查缓存中是否存在当前依赖包 , 不存在的包下载到缓存目录，yarn 根据包信息，生成一个 path 判断系统中是否存在该 path 证明是否有缓存
@@ -538,7 +538,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
 
 cnpm/tnpm -- rapid 模式最近刚刚开源，自己模拟了一个文件系统，还挺复杂的  
 [FUSE](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Filesystem_in_Userspace) (FileSystem in Userspace)，即 **用户态文件系统**。  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662517940647-8f3375c9-1ed8-470f-8b2b-04b5768ad8e2.png#averageHue=%23dbedc7&clientId=u646af24f-630a-4&from=paste&height=142&id=u0d26f491&name=image.png&originHeight=283&originWidth=720&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128287&status=done&style=none&taskId=ud9ec198c-840e-4e58-a04d-5a662bee8bf&title=&width=360)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662517940647-8f3375c9-1ed8-470f-8b2b-04b5768ad8e2.png#averageHue=%23dbedc7&clientId=u646af24f-630a-4&from=paste&height=142&id=u0d26f491&originHeight=283&originWidth=720&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128287&status=done&style=none&taskId=ud9ec198c-840e-4e58-a04d-5a662bee8bf&title=&width=360)  
 deno-- imort url  
 yarn v2 -- 升级成本过大
 
