@@ -333,13 +333,13 @@ jar 包和前端的 npm 包原理一样，对于嵌套依赖的问题，maven �
 
 ## npm
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662371558824-2cbec796-822f-4f22-be63-55724d42e82a.png#clientId=u41692371-e9e8-4&from=paste&height=1200&id=Xy7ga&originHeight=1200&originWidth=2292&originalType=binary&ratio=1&rotation=0&showTitle=false&size=292519&status=done&style=none&taskId=ue2bc282b-08a8-47c3-beaa-4a053a768ab&title=&width=2292)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662371558824-2cbec796-822f-4f22-be63-55724d42e82a.png#averageHue=%23f9f3f2&clientId=u41692371-e9e8-4&from=paste&height=1200&id=Xy7ga&originHeight=1200&originWidth=2292&originalType=binary&ratio=1&rotation=0&showTitle=false&size=292519&status=done&style=none&taskId=ue2bc282b-08a8-47c3-beaa-4a053a768ab&title=&width=2292)  
 2010 年的产物，至今存在已经 10 多年  
 模块数量和依赖关系日趋复杂化：
 
 - 模块数量众多，截止 2022 年，[npm 包数量已经超过 200 万](https://link.zhihu.com/?target=http%3A//www.modulecounts.com/)，数倍于其他语言的模块数量。
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662456890614-24b0343a-763e-42e4-a226-843a8027b572.png#clientId=uc56bf6dd-f72f-4&from=paste&height=412&id=ucdbad73d&originHeight=426&originWidth=619&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46330&status=done&style=none&taskId=ue1b2cbd7-cc3b-476d-a829-1506eb6be14&title=&width=598.5)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662456890614-24b0343a-763e-42e4-a226-843a8027b572.png#averageHue=%23f6f5f3&clientId=uc56bf6dd-f72f-4&from=paste&height=412&id=ucdbad73d&originHeight=426&originWidth=619&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46330&status=done&style=none&taskId=ue1b2cbd7-cc3b-476d-a829-1506eb6be14&title=&width=598.5)
 
 - 模块关系错综复杂，存在重复依赖，小文件很多，浪费磁盘空间并拖慢写入速度。**文件 IO，尤其是海量小文件的读写是非常耗时的。**
 
@@ -347,7 +347,7 @@ jar 包和前端的 npm 包原理一样，对于嵌套依赖的问题，maven �
 
 总结一下 npm install 的全过程  
 首先检查 config，获取 npm 配置，项目级的.nmprc > 用户级的 .npmrcc > 全局.npmrc > npm 内置的.npmrc   
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386214886-55e749ed-000d-4a08-90ff-5355dc570d61.png#clientId=u55a5bcea-a50e-4&from=paste&height=312&id=ub157d5ee&originHeight=312&originWidth=1148&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54713&status=done&style=none&taskId=ud6d9a620-6379-4090-8a7d-04c81bd1e0b&title=&width=1148)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386214886-55e749ed-000d-4a08-90ff-5355dc570d61.png#averageHue=%23313131&clientId=u55a5bcea-a50e-4&from=paste&height=312&id=ub157d5ee&originHeight=312&originWidth=1148&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54713&status=done&style=none&taskId=ud6d9a620-6379-4090-8a7d-04c81bd1e0b&title=&width=1148)  
 npm install 先检测是有 package-lock.json 文件:
 
 - 没有 package-lock.json 文件
@@ -367,14 +367,14 @@ npm install 先检测是有 package-lock.json 文件:
     - 命中缓存会获取缓存中的压缩文件
   - 将压缩文件解压到 node_modules 文件夹中;
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386002716-281a8ce4-7828-42f8-b08d-54b206910203.png#clientId=u55a5bcea-a50e-4&from=paste&height=710&id=u17b1995f&originHeight=710&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84459&status=done&style=none&taskId=uf178984a-b8b7-4155-be21-6f41135d069&title=&width=1302)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662386002716-281a8ce4-7828-42f8-b08d-54b206910203.png#averageHue=%23f3f2f3&clientId=u55a5bcea-a50e-4&from=paste&height=710&id=u17b1995f&originHeight=710&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84459&status=done&style=none&taskId=uf178984a-b8b7-4155-be21-6f41135d069&title=&width=1302)
 
 使用 npm i --timing=true --loglevel=verbose 命令可以看到 npm install 的完整过程
 
 ### package-lock.json
 
 package-lock.json 的作用是锁定依赖结构，即只要你目录下有 package-lock.json 文件，那么你每次执行 npm install 后生成的 node_modules 目录结构一定是完全相同的。  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660714954070-b626c074-7310-414a-9e04-d73614e14fa7.png#clientId=u86f5a14a-0ca4-4&from=paste&height=850&id=VwAep&originHeight=850&originWidth=2016&originalType=binary&ratio=1&rotation=0&showTitle=false&size=463808&status=done&style=none&taskId=u4444c3bd-8d16-4559-8b28-f471db5b2b1&title=&width=2016)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1660714954070-b626c074-7310-414a-9e04-d73614e14fa7.png#averageHue=%232b2b2b&clientId=u86f5a14a-0ca4-4&from=paste&height=850&id=VwAep&originHeight=850&originWidth=2016&originalType=binary&ratio=1&rotation=0&showTitle=false&size=463808&status=done&style=none&taskId=u4444c3bd-8d16-4559-8b28-f471db5b2b1&title=&width=2016)
 
 - name:项目的名称;
 - version:项目的版本;
@@ -414,7 +414,7 @@ npm 在执行安装时，可以根据 package-lock.json 中存储的 integrity�
 
 ### 包的完整性
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662472333144-7b48480b-6921-40df-84ba-9f876497a080.png#clientId=uedf6f6a8-8725-4&from=paste&height=568&id=u5f94869f&originHeight=568&originWidth=1732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133974&status=done&style=none&taskId=uffee2876-608b-4a0e-9cef-fe536c1d847&title=&width=1732)   
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662472333144-7b48480b-6921-40df-84ba-9f876497a080.png#averageHue=%23020202&clientId=uedf6f6a8-8725-4&from=paste&height=568&id=u5f94869f&originHeight=568&originWidth=1732&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133974&status=done&style=none&taskId=uffee2876-608b-4a0e-9cef-fe536c1d847&title=&width=1732)   
 例如我们执行 npm info 命令，shasum 值就是 hash 值，用户下载依赖包到本地后，需要确定在下载过程中没有出现错误，所以在下载完成之后需要在本地在计算一次文件的 hash 值，如果两个 hash 值是相同的，则确保下载的依赖是完整的，如果不同，则进行重新下载。
 
 ## yarn
@@ -497,7 +497,7 @@ yarn cache dir
 yarn 的缓策略，每个缓存的模块被存放在独立的文件夹，文件夹名称包含了模块名称、版本号等信息  
 命名方式：npm-[package name]-[version]-[shasum]  
 npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662470048541-0c19b0e9-49be-4797-9596-1e37b3e9e1b7.png#clientId=uedf6f6a8-8725-4&from=paste&height=410&id=u3f13b08f&originHeight=410&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56545&status=done&style=none&taskId=u01394d38-d4a4-4d39-9561-1c8118895e5&title=&width=785)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662470048541-0c19b0e9-49be-4797-9596-1e37b3e9e1b7.png#averageHue=%23f4f4f4&clientId=uedf6f6a8-8725-4&from=paste&height=410&id=u3f13b08f&originHeight=410&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=56545&status=done&style=none&taskId=u01394d38-d4a4-4d39-9561-1c8118895e5&title=&width=785)
 
 ### yarn install
 
@@ -505,7 +505,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
 
 - 检测包
   - 检测是否有 npm 相关文件文件,比如 package-lock.json 等;如果有,就会有相关的提示用户注意：这些文件可能会存在冲突。
-  - ![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662467650622-9cbd25db-9c2b-4ce6-9636-e8b394f36e89.png#clientId=uedf6f6a8-8725-4&from=paste&height=70&id=u596992b1&originHeight=70&originWidth=586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17335&status=done&style=none&taskId=u1802e533-82fb-4454-8c26-49ef31d457c&title=&width=586)
+  - ![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662467650622-9cbd25db-9c2b-4ce6-9636-e8b394f36e89.png#averageHue=%231d1d1d&clientId=uedf6f6a8-8725-4&from=paste&height=70&id=u596992b1&originHeight=70&originWidth=586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17335&status=done&style=none&taskId=u1802e533-82fb-4454-8c26-49ef31d457c&title=&width=586)
   - 检查 os cpu 等信息，部分包会设置
 - 解析包
   - 获取 package.json 中依赖 遍历首层依赖获取依赖包版本信息(dependencies 和 devDependencies) ,
@@ -517,7 +517,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
   - 遍历队列在已经解析过的包信息中，找到最合适的可用版本信息
   - 这个流程结束后 得到了所有依赖的版本信息 和 下载地址
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662468419455-6c301c1c-2ab8-4c00-8a47-addcb2cb850b.png#clientId=uedf6f6a8-8725-4&from=paste&height=964&id=u5afdd59a&originHeight=964&originWidth=1974&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128064&status=done&style=none&taskId=u81de0cd4-df45-43e5-86d5-3c459bfb460&title=&width=1974)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662468419455-6c301c1c-2ab8-4c00-8a47-addcb2cb850b.png#averageHue=%23efefee&clientId=uedf6f6a8-8725-4&from=paste&height=964&id=u5afdd59a&originHeight=964&originWidth=1974&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128064&status=done&style=none&taskId=u81de0cd4-df45-43e5-86d5-3c459bfb460&title=&width=1974)
 
 - 获取包
   - 检查缓存中是否存在当前依赖包 , 不存在的包下载到缓存目录，yarn 根据包信息，生成一个 path 判断系统中是否存在该 path 证明是否有缓存
@@ -538,7 +538,7 @@ npm-axios-0.26.1-1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9-integrity
 
 cnpm/tnpm -- rapid 模式最近刚刚开源，自己模拟了一个文件系统，还挺复杂的  
 [FUSE](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Filesystem_in_Userspace) (FileSystem in Userspace)，即 **用户态文件系统**。  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662517940647-8f3375c9-1ed8-470f-8b2b-04b5768ad8e2.png#averageHue=%23dbedc7&clientId=u646af24f-630a-4&from=paste&height=142&id=u0d26f491&originHeight=283&originWidth=720&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128287&status=done&style=none&taskId=ud9ec198c-840e-4e58-a04d-5a662bee8bf&title=&width=360)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1662517940647-8f3375c9-1ed8-470f-8b2b-04b5768ad8e2.png#averageHue=%23dbedc7&clientId=u646af24f-630a-4&from=paste&height=212&id=u0d26f491&originHeight=283&originWidth=720&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128287&status=done&style=none&taskId=ud9ec198c-840e-4e58-a04d-5a662bee8bf&title=&width=539)  
 deno-- imort url  
 yarn v2 -- 升级成本过大
 
