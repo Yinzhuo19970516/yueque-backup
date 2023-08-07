@@ -1,0 +1,244 @@
+# Ajax、Fetch和Axios：前端异步请求的比较与选择
+## Ajax
+
+全称是 Asynchronous JavaScript And **XML ** [e'sɪŋkrənəs]  
+Ajax 异步网络请求，是一项标准，是为了能在不更新整个页面的前提下修改维护数据  
+实现 Ajax 的方式很多。
+
+- 原生的 XHR
+  - 1999 年提出，距今已经 24 年
+    - XHR was an ugly baby and time has not been kind to it. It's 16 now. In a few years it'll be old enough to drink, and it's enough of a pain in the arse when it's sober
+  - 是浏览器提供 API
+  - 配置调用繁琐，心智负担较重
+  - 观察如下代码，代码组织不够语义化，很容易陷入回调地狱
+
+```javascript
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = () => {
+  if (xhr.readystate == 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+      alert(xhr.responseText);
+    } else {
+      alert("Request was unsuccessful: " + xhr.status);
+    }
+  }
+};
+xhr.open("get", "example.php", true);
+xhr.send(null);
+```
+
+- jquery 封装的 ajax
+  - $.ajax() 2011 年提出
+  - 没有必要因为使用 ajax 而引用 jquery
+- axios
+  - 2014 年发布第一个版本
+
+## aixos
+
+### 简介
+
+axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中
+
+### 特性
+
+- 从浏览器中创建 [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) => 适配器
+- 从 node.js 创建 [http](http://nodejs.org/api/http.html) 请求 => node 的 http 库
+- 支持 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API => axios 内部返回的就是一个 promise
+- 拦截请求和响应 => interceptors 拦截器
+- 转换请求数据和响应数据=>转换器
+- 取消请求 => 基于 AbortController
+  - [AbortController.abort()](https://developer.mozilla.org/zh-CN/docs/Web/API/AbortController/abort)
+  - 中止一个尚未完成的 Web（网络）请求。
+- 自动转换 JSON 数据 => 根据 content-type 自动将请求数据对象转为 json
+- 客户端支持防御 [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) => 可设置请求头部
+
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690529633087-04aafdac-342f-43c6-900c-645feae1cf66.png#averageHue=%23faf8f8&clientId=uc0bc87a1-5d44-4&from=paste&height=1474&id=u41b0c189&originHeight=1474&originWidth=2696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=350939&status=done&style=none&taskId=u3d3d384a-afea-4b59-aa52-ca0b6c2f104&title=&width=2696)
+
+### 封装
+
+#### 封装目的
+
+- 降低心智负担
+- 减少冗余代码
+- 使用更加高效
+
+#### 封装思路
+
+- 正常请求基础的配置，比如超时配置，baseUrl，跨域携带 cookie 等等
+- 响应拦截处理
+  - 请求成功，业务状态码成功，直接解析接口中的 data，不用一层一层再去取 code，判断，拿结果
+  - 请求成功，业务状态码不成功，可以选择自己处理特殊状态码，也可以选择全局 message 提示服务端的报错，业务开发中，大部分都是直接提示服务端报错，但是也有需要前端处理状态码的逻辑
+  - 请求失败，全局 message 提示报错
+  - 统一的特殊请求码处理，或者状态码做特殊逻辑，比如丢失登陆态，请求参数有误等等
+- 全局统一的 loading 配置
+  - 默认开启，可配置关闭
+  - 统一管理，业务中可以不用再去关心这个逻辑
+- 支持自动取消重复的请求
+
+#### 代码链接
+
+[https://github.com/Yinzhuo1997011516/vue-template/blob/main/src/common/axios/request.ts](https://github.com/Yinzhuo19970516/vue-template/blob/main/src/common/axios/request.ts)
+
+## fetch
+
+2011 年提出，2015 年正式标准化  
+fetch 和 axios 没有任何关系，不是同一层级的东西  
+**fetch 确实是 xhr 内部演进的结果。**
+
+> node17.5 已经合并了 fetch API
+
+### 对比
+
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690530590999-c23bfc7d-c5cc-4cd3-8f0e-4247cec01c03.png#averageHue=%23f6cb7a&clientId=uc0bc87a1-5d44-4&from=paste&height=462&id=u56397722&originHeight=462&originWidth=1098&originalType=binary&ratio=1&rotation=0&showTitle=false&size=227598&status=done&style=none&taskId=u467f5568-6571-47e2-a24b-16cfdb37ffc&title=&width=1098)  
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690530604207-46bf6e9d-902e-4219-bfc7-8e5a53bbc34e.png#averageHue=%231a150b&clientId=uc0bc87a1-5d44-4&from=paste&height=633&id=ubad2ba24&originHeight=633&originWidth=1341&originalType=binary&ratio=1&rotation=0&showTitle=false&size=210555&status=done&style=none&taskId=u7c759e62-bb58-49c6-ac6e-94cb09d0d5a&title=&width=1341)
+
+### 设计理念
+
+- 分离 request / response / header / body，更加灵活
+  - 比如可以客户端返回 response，不通过网络。结合缓存做一些优化处理。
+
+```javascript
+self.addEventListener('fetch', function (event) {
+  if (event.request.url === new URL('/', location).href) {
+    event.respondWith(
+      new Response('<h1>Hello!</h1>', {
+        headers: {'Content-Type', 'text/html'}
+      })
+    )
+  }
+})
+```
+
+- fetch 方法天然返回 Promsie 对象
+
+```javascript
+async function get(url) {
+  let response = await fetch(url);
+  console.info("Url - fetched");
+  console.log(response);
+}
+console.log("Start Fetch URL");
+get("test.json");
+console.log("Todo anysc next");
+```
+
+### 争议
+
+- 标准的更新应该是迭代式的
+
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690527464121-aaaf6a40-5feb-4b12-81dd-3c8e2f85411a.png#averageHue=%23f3eeee&clientId=uc0bc87a1-5d44-4&from=paste&height=460&id=u11073b9e&originHeight=460&originWidth=693&originalType=binary&ratio=1&rotation=0&showTitle=false&size=79186&status=done&style=none&taskId=u22a70b6e-ad0e-46f2-aecf-f96f1354f87&title=&width=693)
+
+- 认为 fetch API 对于某些 http 错误码不会 reject（比如 400、500 等）仅在发生“network error（网络错误）”才会 reject
+  - 到底合不合理？不管是错误码还是正确码都表示 http 客户端有接受到服务器的 response，而网络错误这类才真正代表着异常。
+- 缺少中断请求，超时取消请求
+  - 需要使用创建一个新的 AbortController 对象，来取消请求，这个对象中有一个 signal 属性，将 signal 传入 fetch 请求的配置中，然后我们使用 AbortController 的 abort 方法可取消此次请求。
+  - 这一点与 axios 现在已经一致
+- 方法无法跟踪 **上传** 进度
+
+### 兼容性
+
+- 权衡，兼容性对你是否及其重要
+- whatwg-fetch fetch API 的 polyfill
+
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690528359914-1102842c-dc16-42db-8d27-48dff39e6136.png#averageHue=%23c8a589&clientId=uc0bc87a1-5d44-4&from=paste&height=1430&id=uc8a910cc&originHeight=1430&originWidth=2750&originalType=binary&ratio=1&rotation=0&showTitle=false&size=352648&status=done&style=none&taskId=u8a8034ef-d9ae-4f21-ab94-4c49dc43ad2&title=&width=2750)  
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1690528413446-d786cf61-522b-4253-ba03-f8f6ea1aa4ce.png#averageHue=%23c6af96&clientId=uc0bc87a1-5d44-4&from=paste&height=1494&id=u7bf73ed5&originHeight=1494&originWidth=2840&originalType=binary&ratio=1&rotation=0&showTitle=false&size=443868&status=done&style=none&taskId=ub4fb2643-6e98-4ffd-82e1-9ee6412d067&title=&width=2840)  
+**除了兼容性，还有什么遏制了 fetch API 替代了 XHR?**  
+那是因为各种优秀的库（XHR 封装）基本能够满足上层应用者大部分的功能需求，并且也没有特别大的缺点，那么为什么还要冒着风险使用新的 fetch API 呢？这是不是也体现了你已经默默做了技术选择的 tradeoff 呢？  
+尽管有种种的问题，但是 fetch API 的未来仍然是光明的，npm 的 polyfill 包下载量也能简单的说明问题：
+
+- 下载量
+  - axios 45,935,428
+  - whatwg-fetch 12,486,089
+
+两者的差距也并不是太远
+
+## TanStack Query （曾用名：React Query）
+
+[https://github.com/TanStack/query](https://github.com/TanStack/query)  
+TanStack Query 是一种流行的前端数据获取库，通常用于管理异步数据。它是由 Tanner Linsley 创建的 TanStack 生态系统的一部分。  
+该库包括 React Query 和 Vue Query，这两个库分别是为 React 和 Vue.js 应用程序设计的。  
+使用这些库，开发人员可以更容易地处理应用程序中的服务器状态，包括缓存、同步、后台更新和垃圾收集等功能。  
+这些函数使得处理远程数据变得更加简单，同时也大大提升了应用程序的性能。  
+概括来说，TanStack Query 提供了一种对异步数据进行更高级管理的方式，它提供的功能远超过普通的 HTTP 请求客户端（例如 axios 或 fetch）。  
+不是 axios 的替代品，是帮助我们更舒服的使用 axios
+
+## vue-query
+
+[https://vue-query.vercel.app/#/](https://vue-query.vercel.app/#/)
+
+### 简介
+
+提供了用于在 Vue 中获取、缓存和更新异步数据的钩子  
+大多数传统的状态管理库非常适合处理客户端状态，但它们不太适合处理异步或服务器状态。
+
+```javascript
+<script setup>
+import { useQuery } from "vue-query";
+
+function useTodosQuery() {
+  return useQuery("todos", fetchTodoList);
+}
+
+const { isLoading, isError, data, error } = useTodosQuery();
+</script>
+
+<template>
+  <span v-if="isLoading">Loading...</span>
+  <span v-else-if="isError">Error: {{ error.message }}</span>
+  <!-- We can assume by this point that `isSuccess === true` -->
+  <ul v-else>
+    <li v-for="todo in data" :key="todo.id">{{ todo.title }}</li>
+  </ul>
+</template>
+```
+
+### 特性
+
+简单易用："vue-query" 提供了简洁的 API 和 hook，使数据查询和状态管理变得非常简单，减少了样板代码和冗余操作。  
+数据缓存："vue-query" 内置了数据缓存机制，自动处理数据缓存，避免重复的网络请求，提高应用性能。  
+自动状态管理："vue-query" 自动处理数据加载状态，包括正在加载、加载完成、加载失败等状态，简化了数据加载的处理逻辑。  
+请求重试："vue-query" 内置了请求重试机制，可以在网络错误时自动重新尝试请求，提高了数据请求的可靠性。  
+并发请求："vue-query" 支持并发请求，可以一次性请求多个数据，提高了数据请求的效率。
+
+### 优缺点
+
+#### 优点
+
+简化了数据查询和状态管理的复杂性，让开发者能够更轻松地处理数据。  
+内置了数据缓存和状态管理，提高了应用性能和用户体验。  
+提供了丰富的功能和配置选项，适用于各种类型的数据查询和状态管理需求。  
+支持并发请求，提高了数据请求的效率。  
+社区活跃，持续更新和维护。
+
+#### 缺点
+
+"vue-query" 与其他数据状态管理库（如 Vuex）相比，可能需要一定的学习成本，特别是对于不熟悉 hook 的开发者。  
+如果应用中只有简单的数据查询需求，可能使用 "vue-query" 会显得有些过于重量级。
+
+## 总结
+
+两者区别
+
+|            | axios            | fetch                                  |
+| ---------- | ---------------- | -------------------------------------- |
+| 兼容性问题 | 兼容 IE          | whatwg-fetch                           |
+| 响应超时   | timeout 简单易用 | setTimeout + **new AbortController**() |
+
+|
+| 对数据转化 | 自动对数据进行转化 response.**data** | 手动转化需要清楚请求后的数据类型是什么，然后再用对应的方法将它进行转换。 |
+| HTTP 拦截器 | 请求附加 token、为请求增加时间戳防止请求缓存，以及拦截响应 | Fetch 没有拦截器功能，如果需要直接重写全局 Fetch 方法就可以办到。 |
+| 浏览器原生支持 | 不支持 | 原生支持，无需安装额外的包 |
+
+**我个人的体验来讲，Axios 使用体验确实优于 Fetch**  
+**最大的不同点在于 Fetch 是浏览器原生支持，而 Axios 需要引入 Axios 库，有利于首页 js 资源控制体积**  
+**如果使用 Fetch 要想实现 Axios 的一些功能还需要手动进行封装。**
+
+## 参考链接
+
+[https://juejin.cn/post/7154723582340415502](https://juejin.cn/post/7154723582340415502)  
+[https://juejin.cn/post/6847009771170562062](https://juejin.cn/post/6847009771170562062)  
+[https://juejin.cn/post/6934155066198720519](https://juejin.cn/post/6934155066198720519)
+
+<br>
+  
+> 语雀地址 https://www.yuque.com/yuqueyonghuyv23kd/xebk9e/bkpdhgxwnto4fslb
