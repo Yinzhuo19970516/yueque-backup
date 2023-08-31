@@ -31,7 +31,7 @@ ying 用层
 
 ## http 报文
 
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1679993270404-2b832b6a-f53f-4a40-a1d8-ce4686974539.png#averageHue=%23c2c2ad&clientId=u0adb44c3-a163-4&from=paste&height=199&id=u98a7749d&name=image.png&originHeight=398&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32166&status=done&style=none&taskId=ucf79406d-d4c9-4e1d-9d62-6825c07991b&title=&width=410.5)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1679993270404-2b832b6a-f53f-4a40-a1d8-ce4686974539.png#averageHue=%23c2c2ad&clientId=u0adb44c3-a163-4&from=paste&height=199&id=u98a7749d&originHeight=398&originWidth=821&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32166&status=done&style=none&taskId=ucf79406d-d4c9-4e1d-9d62-6825c07991b&title=&width=410.5)
 
 1. 请求行有三部分：请求方法，请求目标和版本号；
 2. 状态行也有三部分：版本号，状态码和原因字符串；
@@ -92,11 +92,11 @@ POST 是“新增或提交数据”，多次提交数据会创建多个资源，
     - 非对称加密算法
 - 服务端选择 算法之后，生成一个随机数发送给 客户端
 
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1680073280781-1fd5adbb-d34e-452d-98f2-76d1c09efb41.png#averageHue=%23202020&clientId=ue208d578-8df3-4&from=paste&height=248&id=u73409181&name=image.png&originHeight=495&originWidth=1628&originalType=binary&ratio=2&rotation=0&showTitle=false&size=188463&status=done&style=none&taskId=u8736660f-8bdf-459b-98a1-eecca0e2731&title=&width=814)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1680073280781-1fd5adbb-d34e-452d-98f2-76d1c09efb41.png#averageHue=%23202020&clientId=ue208d578-8df3-4&from=paste&height=248&id=u73409181&originHeight=495&originWidth=1628&originalType=binary&ratio=2&rotation=0&showTitle=false&size=188463&status=done&style=none&taskId=u8736660f-8bdf-459b-98a1-eecca0e2731&title=&width=814)
 
 - 服务器继续发送服务器证书，证书里有它的公钥，服务器地址 证书签名 证书机构 证书机构的签发方
 
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1680073650772-c0361242-687e-461f-8718-21bb68611a5c.png#averageHue=%23a97213&clientId=ue208d578-8df3-4&from=paste&height=261&id=u229b4c1d&name=image.png&originHeight=521&originWidth=1639&originalType=binary&ratio=2&rotation=0&showTitle=false&size=310263&status=done&style=none&taskId=uc8ed6416-0e5d-4ad8-ab00-0d83dfac14b&title=&width=819.5)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1680073650772-c0361242-687e-461f-8718-21bb68611a5c.png#averageHue=%23a97213&clientId=ue208d578-8df3-4&from=paste&height=261&id=u229b4c1d&originHeight=521&originWidth=1639&originalType=binary&ratio=2&rotation=0&showTitle=false&size=310263&status=done&style=none&taskId=uc8ed6416-0e5d-4ad8-ab00-0d83dfac14b&title=&width=819.5)
 
 - 客户端解析证书，拿到公钥
   - 权威机构在颁布证书的时候，会对它的证书做摘要，生成指纹，再使用它的私钥对这段指纹进行加密，生成一个数字签名。当接收方收到证书后，先用证书指定的算法对证书做摘要，然后再用公钥对数字签名解密，如果和摘要的结果一致就证明是可信的。
@@ -131,6 +131,51 @@ POST 是“新增或提交数据”，多次提交数据会创建多个资源，
 
 浏览器刚请求 HTML 的时候就提前把可能会用到的 JS、CSS 文件发给客户端，减少等待的延迟  
 也增强了安全性，要求至少是 TLS1.2，而且禁用了很多不安全的密码套件。
+
+## 队头阻塞
+
+通常我们说队头阻塞，都是说 tcp，但是 HTTP1.1 中也有一个类似 TCP 队头阻塞的问题
+
+### TCP 队头阻塞
+
+TCP 是一种可靠传输，这个可靠就是体现在它能够“**按序到达**”，然后再被上层接收，这里的按序到达指的是最终顺序是按序排列的，也就是说每当有一个或几个 Packet 丢失的时候，会等待它到达后合并，然后再向上交付。
+
+当一个流的第一个数据包丢失了，那么即使后面的数据包都到达了，后面的这些数据包也不能被处理，而是要等第一个数据包到了之后才能被上层接收处理
+
+### HTTP 队头阻塞
+
+HTTP 管道化要求服务端必须按照请求发送的顺序返回响应，那如果一个响应返回延迟了，那么其后续的响应都会被延迟，直到队头的响应送达。
+
+### 如何解决队头阻塞
+
+对于 HTTP1.1 中管道化导致的请求/响应级别的队头阻塞，可以使用 HTTP2 解决。HTTP2 不使用管道化的方式，而是引入了帧、消息和数据流等概念，每个请求/响应被称为消息，每个消息都被拆分成若干个帧进行传输，每个帧都分配一个序号。每个帧在传输是属于一个数据流，而一个连接上可以存在多个流，各个帧在流和连接上独立传输，到达之后在组装成消息，这样就避免了请求/响应阻塞。
+
+当然，即使使用 HTTP2，如果 HTTP2 底层使用的是 TCP 协议，仍可能出现 TCP 队头阻塞。
+
+## http/3（HTTP-over-QUIC）
+
+HTTP/2 虽然通过多路复用解决了 HTTP 层的队头阻塞，但仍然存在 TCP 层的队头阻塞。  
+连接双方的有任一个数据包丢失，或任一方的网络中断，整个 TCP 连接就会暂停，丢失的数据包需要被重新传输，从而阻塞该 TCP 连接中的所有请求，反而在网络较差或不稳定情况下，使用多个连接表现更好。  
+同时，TCP 以及 TCP+TLS 建立连接存在的延迟（握手延迟）  
+因此提出了 QUIC 协议，一种基于 UDP 的低延时的互联网传输层协议。  
+**QUIC**基于 UDP 的低时延的互联网传输层协议，HTTP-over-QUIC 于 2018 年 11 月更名为 HTTP/3。  
+http3 的主要目表是改进网络链接的性能和安全性。  
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/1572912/1693399318297-5ff2d7c9-9f86-491a-8701-2b9702701016.png#averageHue=%23fab452&clientId=u84ffaab8-8a4a-4&from=paste&height=608&id=u05ffa372&originHeight=608&originWidth=1080&originalType=binary&ratio=1&rotation=0&showTitle=false&size=107552&status=done&style=none&taskId=u56c071c0-3f48-44b8-957e-c16ed330e3d&title=&width=1080)
+
+### 降低延迟
+
+在传统的 HTTP/1.1 和 HTTP/2 中，建立连接需要进行三次握手，这会引入一定的延迟。而在 HTTP/3 中，通过使用 QUIC 协议，可以实现零 RTT（Round-Trip Time）建立连接，即在建立连接的过程中不需要进行额外的往返时间。  
+QUIC 已经通过将传输和加密握手合并为一个，减少了典型连接握手的完整往返行程。  
+允许客户端在连接的第一次往返中发送应用程序数据，而无需事先完成任何其他握手。
+
+### 有序交付
+
+UDP 是不可靠传输协议，（不保证交付，不保证顺序，不保证不重复）  
+QUIC 在每个数据包都设有一个 offset 字段（偏移量），**接收端根据 offset 字段就可以对异步到达的数据包进行排序了**，保证了有序性。
+
+### 队头阻塞
+
+QUIC 基于 UDP, UDP 的数据包在接收端没有处理顺序, 即使中间丢失一个包, 也不会阻塞整条连接. 其他的资源会被正常处理.
 
 <br>
   
