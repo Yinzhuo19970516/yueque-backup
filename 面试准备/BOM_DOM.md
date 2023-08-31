@@ -6,7 +6,7 @@ ECMAScript，描述了该语言的语法和基本对象，如类型、运算、�
 
 # DOM/BOM 架构
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655376758094-2ac016f5-54f8-4f56-ba21-0cc0f69f3bd5.png#clientId=u5213b72f-7fb8-4&from=paste&height=239&id=u72b418f2&name=image.png&originHeight=477&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=154317&status=done&style=none&taskId=ub7b0a289-cefd-41c6-8686-c67fcb26748&title=&width=652)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655376758094-2ac016f5-54f8-4f56-ba21-0cc0f69f3bd5.png#averageHue=%23a6a6a5&clientId=u5213b72f-7fb8-4&from=paste&height=239&id=u72b418f2&originHeight=477&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=154317&status=done&style=none&taskId=ub7b0a289-cefd-41c6-8686-c67fcb26748&title=&width=652)  
 JavaScript 运行在浏览器  
 **BOM 就是连接 JavaScript 代码和浏览器的桥梁，而 DOM 就是用来操作各种标签元素的。**
 
@@ -25,9 +25,9 @@ Attr 可以理解我们元素的**class 属性 id 属性以及值**
 
 我们可以在浏览器中打印它的原型属性  
 **通过下图我们可以看出，window 继承 Window，Window 继承自 EventTarget**  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655384234688-87ecdda4-8c19-431e-8d0a-72181ab2ed83.png#clientId=uc3d64fda-a338-4&from=paste&height=218&id=u9846dd2e&name=image.png&originHeight=436&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=256045&status=done&style=none&taskId=u187fb4cd-d270-4a66-b389-23b00077148&title=&width=652)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655384234688-87ecdda4-8c19-431e-8d0a-72181ab2ed83.png#averageHue=%23f8f4f3&clientId=uc3d64fda-a338-4&from=paste&height=218&id=u9846dd2e&originHeight=436&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=256045&status=done&style=none&taskId=u187fb4cd-d270-4a66-b389-23b00077148&title=&width=652)  
 **通过下图我们可以看出，document 继承 HtmlDocument，HtmlDocument 继承自 Document,Document 继承自 Node 节点，Node 节点继承自 EventTarget**  
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655384248960-3cbe60a3-0be1-44aa-974f-ffa0354739d5.png#clientId=uc3d64fda-a338-4&from=paste&height=159&id=u1ad21972&name=image.png&originHeight=318&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=170307&status=done&style=none&taskId=ufb9ea1e5-6c22-48c3-b302-9bbfe8ea9d4&title=&width=652)  
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655384248960-3cbe60a3-0be1-44aa-974f-ffa0354739d5.png#averageHue=%23f8f6f5&clientId=uc3d64fda-a338-4&from=paste&height=159&id=u1ad21972&originHeight=318&originWidth=1304&originalType=binary&ratio=1&rotation=0&showTitle=false&size=170307&status=done&style=none&taskId=ufb9ea1e5-6c22-48c3-b302-9bbfe8ea9d4&title=&width=652)  
 顺便说一句：EventTarget 继承自 Object,Object 继承自 null
 
 ## EventTarget 接口
@@ -88,7 +88,7 @@ window 是一个复杂的大对象，包含了大量的对象和方法
 - 第四:包含从 EventTarget 继承过来的方法，addEventListener、removeEventListener、dispatchEvent 方法;
 
 参考地址：MDN 文档:[developer.mozilla.org/zh-CN/docs/…](https://link.juejin.cn?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FWindow)  
-![](https://cdn.nlark.com/yuque/0/2022/webp/1572912/1655383297862-33448703-bb2a-4522-8cf4-c96e9cc984fc.webp#clientId=uc3d64fda-a338-4&from=paste&id=uba4d3255&originHeight=467&originWidth=1304&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u869267d9-aef1-450c-993f-e5a9fc0c479&title=)
+![](https://cdn.nlark.com/yuque/0/2022/webp/1572912/1655383297862-33448703-bb2a-4522-8cf4-c96e9cc984fc.webp#averageHue=%23f4f4f4&clientId=uc3d64fda-a338-4&from=paste&id=uba4d3255&originHeight=467&originWidth=1304&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u869267d9-aef1-450c-993f-e5a9fc0c479&title=)
 
 ### 常见的属性
 
@@ -261,7 +261,7 @@ DOM 可以把任何 HTML 和 XML 文档描绘成一个由多层节点构成的�
 </html>
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655647422547-3d058a55-75f4-4c1d-b64a-59083d2fd1ec.png#clientId=u1e7bbe51-ee6b-4&from=paste&height=365&id=u39cbab32&name=image.png&originHeight=567&originWidth=656&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166861&status=done&style=none&taskId=udbe24baa-bbdc-4d80-a35f-7dfd2a5d62d&title=&width=422)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655647422547-3d058a55-75f4-4c1d-b64a-59083d2fd1ec.png#clientId=u1e7bbe51-ee6b-4&from=paste&height=365&id=u39cbab32&originHeight=567&originWidth=656&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166861&status=done&style=none&taskId=udbe24baa-bbdc-4d80-a35f-7dfd2a5d62d&title=&width=422)
 
 上图中就包括 DOM 的主要节点  
 **Document 文档节点**  
@@ -486,7 +486,7 @@ var iframe = iframe.contentDocuemnt || iframe.contentWindow.document;
   - scrollHeight scrollWidth scrollLeft scrollTop
   - scrollLeft scrollTop 可以用来确定当前元素滚动状态
 
-![未命名文件 (4).png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074872108-b6b8c636-a84e-49a0-9472-00d7b29e19b6.png#clientId=u36c96a3e-0849-4&from=ui&id=u7a100413&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20%284%29.png&originHeight=854&originWidth=1209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57165&status=done&style=none&taskId=u39319cc8-680b-47b1-9c3a-47f49a4d142&title=)
+![未命名文件 (4).png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074872108-b6b8c636-a84e-49a0-9472-00d7b29e19b6.png#clientId=u36c96a3e-0849-4&from=ui&id=u7a100413&originHeight=854&originWidth=1209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57165&status=done&style=none&taskId=u39319cc8-680b-47b1-9c3a-47f49a4d142&title=)
 
 - 确定元素大小
   - getBoundClientRect()返回一个矩形对象，包含四个属性 left top right bottom,给出了元素在页面中相对于视口的位置。
@@ -497,7 +497,7 @@ var iframe = iframe.contentDocuemnt || iframe.contentWindow.document;
   - width：元素的宽度;
   - height：元素的高度;
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074815517-883b2353-9948-42e9-9eef-861097f24146.png#clientId=u36c96a3e-0849-4&from=paste&height=550&id=u6a3f876e&name=image.png&originHeight=1099&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69731&status=done&style=none&taskId=ud839abe3-2b2e-412a-b6df-4b3999bfd71&title=&width=733)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074815517-883b2353-9948-42e9-9eef-861097f24146.png#clientId=u36c96a3e-0849-4&from=paste&height=550&id=u6a3f876e&originHeight=1099&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69731&status=done&style=none&taskId=ud839abe3-2b2e-412a-b6df-4b3999bfd71&title=&width=733)
 
 ## 范围
 
