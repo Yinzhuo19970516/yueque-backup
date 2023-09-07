@@ -261,7 +261,7 @@ DOM 可以把任何 HTML 和 XML 文档描绘成一个由多层节点构成的�
 </html>
 ```
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655647422547-3d058a55-75f4-4c1d-b64a-59083d2fd1ec.png#clientId=u1e7bbe51-ee6b-4&from=paste&height=365&id=u39cbab32&originHeight=567&originWidth=656&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166861&status=done&style=none&taskId=udbe24baa-bbdc-4d80-a35f-7dfd2a5d62d&title=&width=422)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1655647422547-3d058a55-75f4-4c1d-b64a-59083d2fd1ec.png#averageHue=%23d4d4d4&clientId=u1e7bbe51-ee6b-4&from=paste&height=365&id=u39cbab32&originHeight=567&originWidth=656&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166861&status=done&style=none&taskId=udbe24baa-bbdc-4d80-a35f-7dfd2a5d62d&title=&width=422)
 
 上图中就包括 DOM 的主要节点  
 **Document 文档节点**  
@@ -486,7 +486,7 @@ var iframe = iframe.contentDocuemnt || iframe.contentWindow.document;
   - scrollHeight scrollWidth scrollLeft scrollTop
   - scrollLeft scrollTop 可以用来确定当前元素滚动状态
 
-![未命名文件 (4).png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074872108-b6b8c636-a84e-49a0-9472-00d7b29e19b6.png#clientId=u36c96a3e-0849-4&from=ui&id=u7a100413&originHeight=854&originWidth=1209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57165&status=done&style=none&taskId=u39319cc8-680b-47b1-9c3a-47f49a4d142&title=)
+![未命名文件 (4).png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074872108-b6b8c636-a84e-49a0-9472-00d7b29e19b6.png#averageHue=%234c4c4c&clientId=u36c96a3e-0849-4&from=ui&id=u7a100413&originHeight=854&originWidth=1209&originalType=binary&ratio=1&rotation=0&showTitle=false&size=57165&status=done&style=none&taskId=u39319cc8-680b-47b1-9c3a-47f49a4d142&title=)
 
 - 确定元素大小
   - getBoundClientRect()返回一个矩形对象，包含四个属性 left top right bottom,给出了元素在页面中相对于视口的位置。
@@ -497,7 +497,7 @@ var iframe = iframe.contentDocuemnt || iframe.contentWindow.document;
   - width：元素的宽度;
   - height：元素的高度;
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074815517-883b2353-9948-42e9-9eef-861097f24146.png#clientId=u36c96a3e-0849-4&from=paste&height=550&id=u6a3f876e&originHeight=1099&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69731&status=done&style=none&taskId=ud839abe3-2b2e-412a-b6df-4b3999bfd71&title=&width=733)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/1572912/1657074815517-883b2353-9948-42e9-9eef-861097f24146.png#averageHue=%23bfbfbe&clientId=u36c96a3e-0849-4&from=paste&height=550&id=u6a3f876e&originHeight=1099&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69731&status=done&style=none&taskId=ud839abe3-2b2e-412a-b6df-4b3999bfd71&title=&width=733)
 
 ## 范围
 
